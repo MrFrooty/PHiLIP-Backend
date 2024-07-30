@@ -77,7 +77,7 @@ export default function Home() {
       </main>
 
       <footer className="py-4 text-center text-sm text-muted-foreground">
-        © 2024 PHiLIP Image Generator. All rights reserved.
+        © 2024 PHiLIP. All rights reserved.
       </footer>
     </div>
   )
