@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { BentoGrid, BentoCard } from "@/components/ui/bento-grid"
 import BlurFade from "@/components/ui/blur-fade"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import Image from 'next/image'
 
 type ArtStyleOption = string | { label: string; options: string[] };
 type ArtStyles = Record<string, ArtStyleOption[]>;
@@ -118,11 +118,13 @@ export default function Home() {
         <div className="w-1/2 p-6 flex items-center justify-center bg-gray-100 dark:bg-gray-900">
           <BlurFade>
             {generatedImages.length > 0 ? (
-              <img 
-                src={generatedImages[0]} 
-                alt="Generated Image" 
-                className="max-w-full max-h-full object-contain shadow-lg rounded-lg"
-              />
+              <Image 
+              src={generatedImages[0]} 
+              alt="Generated Image" 
+              width={512}
+              height={512}
+              className="max-w-full max-h-full object-contain shadow-lg rounded-lg"
+            />
             ) : (
               <div className="text-center text-gray-500 dark:text-gray-400">
                 <p className="text-xl mb-2">No image generated yet</p>
