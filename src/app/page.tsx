@@ -105,6 +105,8 @@ export default function Home() {
                   description={`Explore ${category} art styles`}
                   href="#"
                   cta="Select"
+                  isSelected={selectedStyle === category}
+                  onSelect={() => handleStyleSelection(category)}
                   content={renderStyleOptions(options)}
                 />
               </BlurFade>
