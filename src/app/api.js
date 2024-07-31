@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:7000';;
 
 const api = axios.create({
   baseURL: API_URL,
@@ -71,10 +71,19 @@ export const getStylePrompts = async () => {
   }
 };
 
-// Freestyle Enhancement
-export const applyFreestyle = async (imageData, prompt, selectedStyle, temperature) => {
+export const applyPixart = async (imageData, prompt, temperature) => {
   try {
-    const response = await api.post('/apply-freestyle', { imageData, prompt, selectedStyle, temperature });
+    const response = await api.post('/apply-pixart', { imageData, prompt, temperature });
+    return response.data;
+  } catch (error) {
+    console.error('Error applying Pixart:', error);
+    throw error;
+  }
+};
+
+export const applyFreestyle = async (imageData, prompt, temperature, selectedStyle) => {
+  try {
+    const response = await api.post('/apply-freestyle', { imageData, prompt, temperature, selectedStyle });
     return response.data;
   } catch (error) {
     console.error('Error applying Freestyle:', error);
@@ -82,10 +91,9 @@ export const applyFreestyle = async (imageData, prompt, selectedStyle, temperatu
   }
 };
 
-// Upscaler Enhancement
-export const applyUpscaler = async (imageData, prompt, outputSize) => {
+export const applyUpscaler = async (imageData, prompt, temperature, outputSize) => {
   try {
-    const response = await api.post('/apply-upscaler', { imageData, prompt, outputSize });
+    const response = await api.post('/apply-upscaler', { imageData, prompt, temperature, outputSize });
     return response.data;
   } catch (error) {
     console.error('Error applying Upscaler:', error);
@@ -93,24 +101,12 @@ export const applyUpscaler = async (imageData, prompt, outputSize) => {
   }
 };
 
-// ControlNet Enhancement
 export const applyControlNet = async (imageData, prompt) => {
   try {
     const response = await api.post('/apply-controlnet', { imageData, prompt });
     return response.data;
   } catch (error) {
     console.error('Error applying ControlNet:', error);
-    throw error;
-  }
-};
-
-// Pixart Enhancement
-export const applyPixart = async (imageData, prompt, temperature) => {
-  try {
-    const response = await api.post('/apply-pixart', { imageData, prompt, temperature });
-    return response.data;
-  } catch (error) {
-    console.error('Error applying Pixart:', error);
     throw error;
   }
 };
