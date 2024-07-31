@@ -34,7 +34,7 @@ const StorySection: React.FC = () => {
             <div className="mt-4 flex flex-wrap gap-4 text-lg">
               {missionPoints.map((point, index) => (
                 <div key={index} className=" p-4 flex-1 min-w-[200px]">
-                  <span className="text-xl text-primary font-bold mr-2">{`0${index + 1}.`}</span>
+                  <span className=" text-primary font-bold mr-2">{`0${index + 1}.`}</span>
                   {point}
                 </div>
               ))}
