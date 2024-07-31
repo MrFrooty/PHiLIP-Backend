@@ -4,7 +4,8 @@
 
 Engineers:
 Michael Chen,
-Freddy Song
+Freddy Song,
+Peter Lu
 
 Advisors:
 Xianghao Kong,
