@@ -1,29 +1,88 @@
-'use client'
+'use client';
 
-import { useState, ReactNode } from 'react'
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { BentoGrid, BentoCard } from "@/components/ui/bento-grid"
-import BlurFade from "@/components/ui/blur-fade"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { useState, ReactNode } from 'react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { BentoGrid, BentoCard } from '@/components/ui/bento-grid';
+import BlurFade from '@/components/ui/blur-fade';
+import { ArrowRightIcon } from '@radix-ui/react-icons';
+import * as Menubar from '@radix-ui/react-menubar';
+import { Car } from 'lucide-react';
+import TeamSection from '@/components/ui/team';
 
 type ArtStyleOption = string | { label: string; options: string[] };
 type ArtStyles = Record<string, ArtStyleOption[]>;
 
 const artStyles: ArtStyles = {
   traditional: [
-    { label: "Classical and Renaissance", options: ["Renaissance", "Mannerism", "Baroque", "Rococo"] },
-    { label: "19th Century Art Movements", options: ["Neoclassicism", "Romanticism", "Realism", "Impressionism", "Post-Impressionism", "Symbolism", "Tonalism", "Art Nouveau"] },
+    {
+      label: 'Classical and Renaissance',
+      options: ['Renaissance', 'Mannerism', 'Baroque', 'Rococo'],
+    },
+    {
+      label: '19th Century Art Movements',
+      options: [
+        'Neoclassicism',
+        'Romanticism',
+        'Realism',
+        'Impressionism',
+        'Post-Impressionism',
+        'Symbolism',
+        'Tonalism',
+        'Art Nouveau',
+      ],
+    },
   ],
-  contemporary: ["Anime", "Cartoon", "Digital Pixel Art", "Steampunk", "Cyberpunk", "Fantasy", "Sci-Fi", "Retro", "Vaporwave", "Graffiti", "Pin-Up", "Tattoo", "Chibi", "Comic Book", "Manga", "Retro Futurism", "Kawaii", "Doodle", "Whimsical", "Pop Surrealism", "Memphis"],
-  popArt: ["Pop Art", "Pop Surrealism"],
-  specialized: ["Fantasy", "Sci-Fi", "Steampunk", "Cyberpunk", "Retro", "Vaporwave", "Graffiti", "Pin-Up", "Tattoo", "Chibi", "Comic Book", "Manga", "Retro Futurism", "Kawaii", "Doodle", "Whimsical", "Pop Surrealism", "Memphis"],
+  contemporary: [
+    'Anime',
+    'Cartoon',
+    'Digital Pixel Art',
+    'Steampunk',
+    'Cyberpunk',
+    'Fantasy',
+    'Sci-Fi',
+    'Retro',
+    'Vaporwave',
+    'Graffiti',
+    'Pin-Up',
+    'Tattoo',
+    'Chibi',
+    'Comic Book',
+    'Manga',
+    'Retro Futurism',
+    'Kawaii',
+    'Doodle',
+    'Whimsical',
+    'Pop Surrealism',
+    'Memphis',
+  ],
+  popArt: ['Pop Art', 'Pop Surrealism'],
+  specialized: [
+    'Fantasy',
+    'Sci-Fi',
+    'Steampunk',
+    'Cyberpunk',
+    'Retro',
+    'Vaporwave',
+    'Graffiti',
+    'Pin-Up',
+    'Tattoo',
+    'Chibi',
+    'Comic Book',
+    'Manga',
+    'Retro Futurism',
+    'Kawaii',
+    'Doodle',
+    'Whimsical',
+    'Pop Surrealism',
+    'Memphis',
+  ],
 };
 
 export default function Home() {
-  const [prompt, setPrompt] = useState('')
-  const [generatedImages, setGeneratedImages] = useState<string[]>([])
-  const [selectedStyle, setSelectedStyle] = useState<string | null>(null)
+  const [prompt, setPrompt] = useState('');
+  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
+  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
 
   const handleStyleSelection = (style: string) => {
     setSelectedStyle((prev) => (prev === style ? null : style));
@@ -34,7 +93,9 @@ export default function Home() {
     console.log('Selected style:', selectedStyle);
     // TODO: Implement actual API call here
     // For now, let's just add a placeholder image
-    setGeneratedImages(['https://via.placeholder.com/512x512.png?text=Generated+Image']);
+    setGeneratedImages([
+      'https://via.placeholder.com/512x512.png?text=Generated+Image',
+    ]);
   };
 
   const renderStyleOptions = (options: ArtStyleOption[]): ReactNode => (
@@ -78,11 +139,25 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <div className="flex flex-col items-center border-4 border-black p-6">
+        <div className=" border-4 border-red-500 lg:w-2/3  lg:my-16">
+          <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-indigo-500 to-blue-500 bg-clip-text text-transparent">
+            PHiLIP
+          </h1>
+          <h2 className="text-2xl mb-4 ">
+            {' '}
+            Personalized Human in Loop Image Production
+          </h2>
+        </div>
+        <div>
+          <TeamSection />
+        </div>
+      </div>
+
       <main className="flex-grow flex">
         {/* Left side: Controls and Styles */}
         <div className="w-1/2 p-6 overflow-y-auto">
           <BlurFade className="mb-6">
-            <h1 className="text-3xl font-bold mb-4">PHiLIP Image Generator</h1>
             <Input
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
@@ -100,7 +175,9 @@ export default function Home() {
                 <BentoCard
                   name={category.charAt(0).toUpperCase() + category.slice(1)}
                   className="col-span-1"
-                  background={<div className="absolute inset-0 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900" />}
+                  background={
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900" />
+                  }
                   Icon={() => <div className="text-3xl">🎨</div>}
                   description={`Explore ${category} art styles`}
                   href="#"
@@ -118,15 +195,18 @@ export default function Home() {
         <div className="w-1/2 p-6 flex items-center justify-center bg-gray-100 dark:bg-gray-900">
           <BlurFade>
             {generatedImages.length > 0 ? (
-              <img 
-                src={generatedImages[0]} 
-                alt="Generated Image" 
+              <img
+                src={generatedImages[0]}
+                alt="Generated Image"
                 className="max-w-full max-h-full object-contain shadow-lg rounded-lg"
               />
             ) : (
               <div className="text-center text-gray-500 dark:text-gray-400">
                 <p className="text-xl mb-2">No image generated yet</p>
-                <p>Enter a prompt and click <span>Generate Images</span> to create an image</p>
+                <p>
+                  Enter a prompt and click <span>Generate Images</span> to
+                  create an image
+                </p>
               </div>
             )}
           </BlurFade>
@@ -137,5 +217,5 @@ export default function Home() {
         © 2024 PHiLIP Image Generator. All rights reserved.
       </footer>
     </div>
-  )
+  );
 }
