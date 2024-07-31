@@ -18,12 +18,12 @@ const StorySection: React.FC = () => {
         <CardContent>
           <CardDescription className="text-xl">
             <p>
-              We are made of PhD students, undergraduates, and AI enthusiasts
-              unifed to bridge a gap between advanced AI capabilities and
+              We are a team of PhD students, undergraduates, and AI enthusiasts
+              united to bridge the gap between advanced AI capabilities and
               accessible tools for creatives.
             </p>
-            <h2>Our Mission:</h2>
-            <ul className="list-disc list-inside mt-4">
+            <h2 className="text-2xl font-bold mt-4">Our Mission:</h2>
+            <ol className="list-decimal list-inside mt-4 space-y-2">
               <li>
                 Bridge the divide between complex AI models and user-friendly
                 applications.
@@ -40,7 +40,7 @@ const StorySection: React.FC = () => {
                 Create a platform for collaborative learning and innovation in
                 AI.
               </li>
-            </ul>
+            </ol>
           </CardDescription>
         </CardContent>
         <CardFooter>
