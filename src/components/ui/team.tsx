@@ -43,10 +43,10 @@ const teamMembers = [
 const TeamSection: React.FC = () => {
   return (
     <div>
-      <div className="border-4 flex flex-row flex-wrap justify-center gap-6 w-full">
+      <div className="flex flex-row flex-wrap justify-left gap-6 w-full">
         {teamMembers.map((member, index) => (
           <div key={index} className="shadow-lg w-80">
-            <Card className=" h-full">
+            <Card className="bg-gray-50 h-full">
               <CardHeader>
                 <CardTitle className="pb-1 bg-gradient-to-r from-purple-500 to-violet-300 bg-clip-text text-transparent">
                   {member.name}
