@@ -43,11 +43,14 @@ const teamMembers = [
 const TeamSection: React.FC = () => {
   return (
     <div>
-      <h1 className=" text-3xl">Meet the Team</h1>
+      <h1 className="text-3xl">Meet the Team</h1>
       <h3 className="pb-10">From the University of California Riverside</h3>
       <div className="flex flex-row flex-wrap justify-left gap-6 w-full">
         {teamMembers.map((member, index) => (
-          <div key={index} className="shadow-lg w-80">
+          <div
+            key={index}
+            className="shadow-lg w-80 transition-transform duration-300 transform hover:translate-y-[-4px]"
+          >
             <Card className="bg-gray-50 h-full">
               <CardHeader>
                 <CardTitle className="pb-1 bg-gradient-to-r from-purple-500 to-violet-300 bg-clip-text text-transparent">
@@ -56,7 +59,7 @@ const TeamSection: React.FC = () => {
                 <CardDescription>{member.grade}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="font-semibold ">{member.role}</p>
+                <p className="font-semibold">{member.role}</p>
               </CardContent>
               <CardFooter>
                 <p>Hobbies: {member.hobbies}</p>
