@@ -11,7 +11,7 @@ import {
 const InfoSection: React.FC = () => {
   return (
     <div className="flex justify-center p-4">
-      <Card className="border w-3/5">
+      <Card className="border w-full max-w-6xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">About PHiLIP</CardTitle>
         </CardHeader>
