@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-const InfoSection: React.FC = () => {
+const FeatureSection: React.FC = () => {
   return (
     <div className="flex justify-center p-4">
       <Card className="border w-full max-w-6xl">
@@ -38,4 +38,4 @@ const InfoSection: React.FC = () => {
   );
 };
 
-export default InfoSection;
+export default FeatureSection;
