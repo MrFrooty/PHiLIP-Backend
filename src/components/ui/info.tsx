@@ -11,12 +11,12 @@ import {
 const InfoSection: React.FC = () => {
   return (
     <div className="flex justify-center p-4">
-      <Card className="border-4 w-full max-w-3xl">
+      <Card className="border w-full max-w-3xl">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">About PHiLIP</CardTitle>
+          <CardTitle className="text-3xl font-bold">About PHiLIP</CardTitle>
         </CardHeader>
         <CardContent>
-          <CardDescription>
+          <CardDescription className="text-md mb-6 text-muted-foreground">
             PHiLIP: Personalized Human in Loop Image Production aims to address
             the inefficiencies of high-quality image generation from
             text-to-image AI. By employing an iterative approach, PHiLIP first
