@@ -131,7 +131,7 @@ export default function Home() {
       setProgress(0);
     }
   }, [isLoading]);
-
+    
   const handleStyleSelection = (style: string) => {
     setSelectedStyle((prev) => (prev === style ? null : style));
   };
@@ -393,14 +393,14 @@ export default function Home() {
                 />
               </div>
             </div>
-            {/* <Button onClick={handleGenerate} className="w-full mb-6" disabled={isLoading}>
+            <Button onClick={handleGenerate} className="w-full mb-6" disabled={isLoading}>
               {isLoading ? 'Generating...' : 'Generate Images'}
-            </Button> */}
-            <ProgressButton
+            </Button>
+            {/* <ProgressButton
               onClick={handleGenerate}
               isGenerating={isLoading}
               progress={progress}
-            />
+            /> */}
             {error && <p className="text-red-500 mb-4">{error}</p>}
           </BlurFade>
 
