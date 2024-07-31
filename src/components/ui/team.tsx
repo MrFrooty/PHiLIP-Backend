@@ -125,8 +125,8 @@ const AboutMeSection: React.FC = () => {
   );
 
   return (
-    <div className="w-full max-w-7xl mx-auto my-8">
-      <Card>
+    <div className="flex justify-center p-4">
+      <Card className="border w-full max-w-6xl">
         <CardHeader>
           <CardTitle className="text-3xl">Meet the Team</CardTitle>
           <CardDescription className="text-md">
