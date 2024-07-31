@@ -48,25 +48,6 @@ export default function Home() {
   const [temperature, setTemperature] = useState(1.0)
   const [inferenceSteps, setInferenceSteps] = useState(10)
 
-
-  useEffect(() => {
-    if (isLoading) {
-      const interval = setInterval(() => {
-        setProgress((prevProgress) => {
-          if (prevProgress >= 100) {
-            clearInterval(interval);
-            return 100;
-          }
-          return prevProgress + 1;
-        });
-      }, 100);
-
-      return () => clearInterval(interval);
-    } else {
-      setProgress(0);
-    }
-  }, [isLoading]);
-
   const handleStyleSelection = (style: string) => {
     setSelectedStyle((prev) => (prev === style ? null : style));
   };
@@ -270,14 +251,14 @@ export default function Home() {
                 />
               </div>
             </div>
-            {/* <Button onClick={handleGenerate} className="w-full mb-6" disabled={isLoading}>
+            <Button onClick={handleGenerate} className="w-full mb-6" disabled={isLoading}>
               {isLoading ? 'Generating...' : 'Generate Images'}
-            </Button> */}
-            <ProgressButton
+            </Button>
+            {/* <ProgressButton
               onClick={handleGenerate}
               isGenerating={isLoading}
               progress={progress}
-            />
+            /> */}
             {error && <p className="text-red-500 mb-4">{error}</p>}
           </BlurFade>
 
