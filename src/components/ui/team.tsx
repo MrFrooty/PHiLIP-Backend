@@ -30,7 +30,7 @@ const engineers: Engineer[] = [
   },
   {
     name: 'Freddy Song',
-    role: 'Model Engineer, Backend Dev',
+    role: 'Model Engineer, Full-stack Dev',
     image: '/freddy-song.jpg',
     linkedIn: 'https://www.linkedin.com/in/freddy-song-428677212/',
     blurb: 'UCR 2nd Year.\nPersonal Interests: AI/ML, cafe hopping, DJing',
