@@ -3,6 +3,8 @@
 import { useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+import TeamSection from '@/components/ui/team';
+import InfoSection from '@/components/ui/info';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -17,7 +19,7 @@ import {
 } from '@/components/ui/carousel';
 import ProgressButton from '@/components/ui/progress-button';
 import OptionsBar from '@/components/ui/options-bar';
-import AboutMeSection from '@/components/ui/about';
+//import AboutMeSection from '@/components/ui/about';
 import {
   generateImages,
   applyPixart,
@@ -302,7 +304,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <BlurFade>
         <div></div>
-        <div className="flex flex-col lg:mx-60 py-10 border-black border-4">
+        <div className="flex flex-col items-center py-10">
           <div className="lg:w-2/3 bg-gradient-to-r from-blue-300 to-indigo-600 bg-clip-text text-transparent   lg:my-16">
             <h1 className="text-6xl font mb-4 ">PHiLIP</h1>
             <h2 className="text-3xl text-gray-950 mb-4 ">
@@ -469,9 +471,7 @@ export default function Home() {
           onOptionClick={handleOptionClick}
         />
       </BlurFade>
-      <BlurFade>
-        <AboutMeSection />
-      </BlurFade>
+
       <footer className="py-4 text-center text-sm text-muted-foreground">
         © 2024 PHiLIP. All rights reserved.
       </footer>
