@@ -10,31 +10,31 @@ import {
 const teamMembers = [
   {
     name: 'Michael Chen',
-    grade: 'UCR 2nd year Computer Science',
+    grade: 'B.S. Computer Science',
     role: 'Backend, Model Engineer',
     hobbies: 'gaming and reading novels',
   },
   {
     name: 'Freddy Song',
-    grade: 'UCR 2nd year, Computer Science',
+    grade: 'B.S. Computer Science',
     role: 'Backend, Model Engineer',
     hobbies: 'cafe hopping and DJing',
   },
   {
     name: 'Peter Lu',
-    grade: 'UCR 3rd year, Data Science & Business',
+    grade: 'B.S. Data Science & Business',
     role: 'Frontend, Support Engineer',
     hobbies: 'k-pop listening and travel',
   },
   {
     name: 'Xianghao Kong',
-    grade: 'UCR, PhD Computer Science',
+    grade: 'PhD Computer Science',
     role: 'General Advisor',
     hobbies: 'sketching and museum goer',
   },
   {
     name: 'Ratnodeep Bandyopadhyay',
-    grade: 'UCR, PhD Computer Science',
+    grade: 'PhD Computer Science',
     role: 'General Advisor',
     hobbies: 'hiking, camping, tea',
   },
@@ -43,6 +43,8 @@ const teamMembers = [
 const TeamSection: React.FC = () => {
   return (
     <div>
+      <h1 className=" text-3xl">Meet the Team</h1>
+      <h3 className="pb-10">From the University of California Riverside</h3>
       <div className="flex flex-row flex-wrap justify-left gap-6 w-full">
         {teamMembers.map((member, index) => (
           <div key={index} className="shadow-lg w-80">
