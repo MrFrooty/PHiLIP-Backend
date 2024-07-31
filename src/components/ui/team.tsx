@@ -39,7 +39,7 @@ const engineers: Engineer[] = [
     name: 'Peter Lu',
     role: 'Support Engineer, Full-stack Dev',
     image: '/peter-lu.jpg',
-    linkedIn: 'https://www.linkedin.com/',
+    linkedIn: 'https://www.linkedin.com/in/peter-lu1/',
     blurb: 'UCR 3rd Year.\nPersonal Interests:AI/ML, K-Pop, travel',
   },
   {
@@ -92,8 +92,8 @@ const AboutMeSection: React.FC = () => {
           </div>
         </Link>
         <div className="flex-grow">
-          <p className="text-sm font-medium leading-none">{engineer.name}</p>
-          <p className="text-sm text-muted-foreground">{engineer.role}</p>
+          <p className="text-lg font-bold leading-none">{engineer.name}</p>
+          <p className="text-md text-muted-foreground">{engineer.role}</p>
         </div>
         <button
           onClick={() => toggleExpand(index)}
