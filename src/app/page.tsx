@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/carousel"
 import ProgressButton from '@/components/ui/progress-button'
 import OptionsBar from '@/components/ui/options-bar'
+import AboutMeSection from '@/components/ui/about'
 import { generateImages, applyPixart, applyFreestyle, applyUpscaler, applyControlNet } from '@/app/api.js'
 
 type ArtStyleOption = string | { label: string; options: string[] };
@@ -350,11 +351,12 @@ export default function Home() {
           onOptionClick={handleOptionClick}
         />
       </BlurFade>
-      
+      <BlurFade>
+        <AboutMeSection/>
+      </BlurFade>
       <footer className="py-4 text-center text-sm text-muted-foreground">
-        © 2024 PHiLIP Image Generator. All rights reserved.
+        © 2024 PHiLIP. All rights reserved.
       </footer>
-      
     </div>
   )
 }
