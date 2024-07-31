@@ -92,8 +92,10 @@ const AboutMeSection: React.FC = () => {
           </div>
         </Link>
         <div className="flex-grow">
-          <p className="text-lg font-bold leading-none">{engineer.name}</p>
-          <p className="text-md text-muted-foreground">{engineer.role}</p>
+          <p className="text-lg bg-gradient-to-r from-violet-300 to-pink-300 bg-clip-text text-transparent font-bold leading-none">
+            {engineer.name}
+          </p>
+          <p className="text-sm text-primary-foreground">{engineer.role}</p>
         </div>
         <button
           onClick={() => toggleExpand(index)}
@@ -115,7 +117,7 @@ const AboutMeSection: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="px-4 pb-4"
           >
-            <p className="text-sm text-muted-foreground whitespace-pre-wrap break-words">
+            <p className="text-sm text-accent whitespace-pre-wrap break-words">
               {engineer.blurb}
             </p>
           </motion.div>
