@@ -24,7 +24,7 @@ const StorySection: React.FC = () => {
         </CardHeader>
         <CardContent>
           <CardDescription>
-            <p className="text-3xl">
+            <p className="text-lg">
               We are a team of PhD machine learning researchers, computer and
               data science undergraduates, and AI enthusiasts united with a
               common purpose to bridge the gap between advanced AI capabilities
