@@ -9,6 +9,8 @@ import { ArrowRightIcon } from '@radix-ui/react-icons';
 import * as Menubar from '@radix-ui/react-menubar';
 import { Car } from 'lucide-react';
 import TeamSection from '@/components/ui/team';
+import InfoSection from '@/components/ui/info';
+import { MenubarShortcut } from '@/components/ui/menubar';
 
 type ArtStyleOption = string | { label: string; options: string[] };
 type ArtStyles = Record<string, ArtStyleOption[]>;
@@ -139,20 +141,24 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="flex flex-col items-center border-4 border-black p-6">
-        <div className=" border-4 border-red-500 lg:w-2/3  lg:my-16">
-          <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-indigo-500 to-blue-500 bg-clip-text text-transparent">
-            PHiLIP
-          </h1>
-          <h2 className="text-2xl mb-4 ">
-            {' '}
-            Personalized Human in Loop Image Production
-          </h2>
+      <BlurFade>
+        <div></div>
+        <div className="flex flex-col lg:mx-60 py-10 border-black border-4">
+          <div className="lg:w-2/3 bg-gradient-to-r from-blue-300 to-indigo-600 bg-clip-text text-transparent   lg:my-16">
+            <h1 className="text-6xl font mb-4 ">PHiLIP</h1>
+            <h2 className="text-3xl text-gray-950 mb-4 ">
+              {' '}
+              Empowering Creativity Through AI-Generated Imagery
+            </h2>
+          </div>
+          <div>
+            <InfoSection />
+          </div>
+          <div>
+            <TeamSection />
+          </div>
         </div>
-        <div>
-          <TeamSection />
-        </div>
-      </div>
+      </BlurFade>
 
       <main className="flex-grow flex">
         {/* Left side: Controls and Styles */}
