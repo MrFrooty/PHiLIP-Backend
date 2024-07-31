@@ -1,0 +1,71 @@
+.marquee-container {
+  width: 100%;
+  overflow: hidden; /* Hides anything outside the container */
+  position: relative; /* Required for absolute positioning of the inner element */
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between rows */
+}
+
+.marquee-row {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.marquee {
+  display: flex;
+  white-space: nowrap; /* Keeps the content in a single line */
+  animation: marquee-left 60s linear infinite; /* Adjust the duration for faster/slower scroll */
+}
+
+.row-0 .marquee {
+  animation-name: marquee-left;
+}
+
+.row-1 .marquee {
+  animation-name: marquee-right;
+}
+
+.row-2 .marquee {
+  animation-name: marquee-left;
+}
+
+.marquee-button {
+  background: linear-gradient(
+    to right,
+    #f06,
+    #f9a
+  ); /* Gradient background for buttons */
+  color: white;
+  font-weight: medium;
+  padding: 10px 20px;
+  margin: 0 10px; /* Space between buttons */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.marquee-button:hover {
+  transform: scale(1.1);
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
