@@ -134,6 +134,9 @@ const AboutMeSection: React.FC = () => {
           <CardDescription className="text-md">
             Engineered with ❤️ from the University of California Riverside.
           </CardDescription>
+          <CardDescription className="text-md">
+            Special thanks to Professor Greg Ver Steeg and Professor Phillip Brisk.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">

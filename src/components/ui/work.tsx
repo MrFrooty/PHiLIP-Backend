@@ -61,16 +61,16 @@ const WorkSection: React.FC = () => {
     setExpandedCards((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(index)) {
-        newSet.delete(index); // Close the card if it's already open
+        newSet.delete(index); 
       } else {
-        newSet.add(index); // Open the card if it's not open
+        newSet.add(index); 
       }
       return newSet;
     });
   };
 
   return (
-    <div className="flex justify-center p-4">
+    <div className="flex justify-center p-4 mt-4">
       <Card className="border w-full max-w-6xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">About Our Work</CardTitle>
