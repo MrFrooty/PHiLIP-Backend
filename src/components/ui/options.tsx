@@ -75,6 +75,8 @@ const ArtStylesMarquee: React.FC = () => {
     'Memphis',
   ];
 
+  const doubledArtStyles = artStyles.concat(artStyles);
+
   const splitIntoRows = (arr: string[], rowCount: number) => {
     const rows = [];
     const itemsPerRow = Math.ceil(arr.length / rowCount);
@@ -84,10 +86,10 @@ const ArtStylesMarquee: React.FC = () => {
     return rows;
   };
 
-  const rows = splitIntoRows(artStyles, 3);
+  const rows = splitIntoRows(doubledArtStyles, 3);
 
   return (
-    <div className="marquee-container">
+    <div className="py-6 marquee-container">
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className={`marquee-row row-${rowIndex % 3}`}>
           <div className="marquee">
