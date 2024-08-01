@@ -16,7 +16,7 @@
 .marquee {
   display: flex;
   white-space: nowrap; /* Keeps the content in a single line */
-  animation: marquee-left 60s linear infinite; /* Adjust the duration for faster/slower scroll */
+  animation: marquee-left 120s linear infinite; /* Adjust the duration for faster/slower scroll */
 }
 
 .row-0 .marquee {
@@ -34,8 +34,8 @@
 .marquee-button {
   background: linear-gradient(
     to right,
-    #f06,
-    #f9a
+    rgb(111, 100, 255),
+    rgb(177, 164, 255)
   ); /* Gradient background for buttons */
   color: white;
   font-weight: medium;
@@ -54,18 +54,18 @@
 
 @keyframes marquee-left {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 @keyframes marquee-right {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(50%);
   }
 }
