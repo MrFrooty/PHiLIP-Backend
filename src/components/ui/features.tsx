@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Card,
   CardHeader,
@@ -6,6 +7,7 @@ import {
   CardContent,
   CardDescription,
 } from '@/components/ui/card';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface Feature {
   title: string;
@@ -36,34 +38,61 @@ const features: Feature[] = [
 ];
 
 const FeaturesSection: React.FC = () => {
-  const [hasLoaded, setHasLoaded] = useState(false);
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
 
-  useEffect(() => {
-    // Simulate a delay for the fade-in effect
-    const timer = setTimeout(() => {
-      setHasLoaded(true);
-    }, 100); // Adjust delay as needed
-    return () => clearTimeout(timer);
-  }, []);
+  const handleToggle = (index: number) => {
+    setExpandedCards((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index); // Close the card if it's already open
+      } else {
+        newSet.add(index); // Open the card if it's not open
+      }
+      return newSet;
+    });
+  };
 
   const renderFeatureCard = (feature: Feature, index: number) => (
-    <Card
+    <motion.div
       key={index}
-      className={`shadow-md border-0 flex-1 p-3 transition-all duration-500 ${
-        hasLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-      }`}
+      layout
+      className="relative shadow-md border-0 flex-1 p-3 bg-white rounded-lg overflow-hidden"
     >
       <CardHeader>
-        <CardTitle className="text-2xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent font-bold">
-          {feature.title}
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-2xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent font-bold">
+            {feature.title}
+          </CardTitle>
+          <button
+            onClick={() => handleToggle(index)}
+            className="text-primary hover:text-primary-dark transition-colors"
+          >
+            {expandedCards.has(index) ? (
+              <ChevronUp className="h-5 w-5" />
+            ) : (
+              <ChevronDown className="h-5 w-5" />
+            )}
+          </button>
+        </div>
       </CardHeader>
-      <CardContent>
-        <CardDescription className="text-sm">
-          {feature.description}
-        </CardDescription>
-      </CardContent>
-    </Card>
+      <AnimatePresence>
+        {expandedCards.has(index) && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="px-4 py-2"
+          >
+            <CardContent>
+              <CardDescription className="text-md">
+                {feature.description}
+              </CardDescription>
+            </CardContent>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 
   return (
