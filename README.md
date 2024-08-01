@@ -10,9 +10,9 @@ PHiLIP (Personalized Human in Loop Image Production) is an AI-powered image gene
 2. [Technology Stack](#technology-stack)
 3. [Setup](#setup)
 4. [Running the Project](#running-the-project)
-5. [Usage](#usage)
-6. [Project Structure](#project-structure)
-7. [Configuration](#configuration)
+5. [Running the Backend](#running-the-backend)
+6. [Usage](#usage)
+7. [Project Structure](#project-structure)
 8. [Contributing](#contributing)
 9. [License](#license)
 10. [Team](#team)
@@ -69,10 +69,28 @@ PHiLIP (Personalized Human in Loop Image Production) is an AI-powered image gene
 To run the development server:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+## Running the Backend
+
+To run the backend, follow these steps:
+
+1. Access the AMD Accelerator Cloud (AAC) platform.
+2. Create a new workload for the PHiLIP backend.
+3. SSH into the assigned instance using local port forwarding:
+   ```
+   ssh -p <ssh container port> -L 7000:localhost:7000 aac@aac1.amd.com
+   ```
+4. Once connected, locate the localhost link provided for the backend service.
+5. Update the `.env.local` file in your project root with the backend URL:
+   ```
+   NEXT_PUBLIC_API_URL=http://localhost:7000
+   ```
+
+This setup ensures secure communication between your local development environment and the AMD AAC-hosted backend.
 
 ## Usage
 
@@ -98,9 +116,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 Contributions to this project are welcome. Please follow these steps:
 
 1. Fork the repository
-2. Create a new branch (`git checkout -b feature/branch`)
+2. Create a new branch (`git checkout -b feature/your-feature-name`)
 3. Make your changes and commit them (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin feature/branch`)
+4. Push to the branch (`git push origin feature/your-feature-name`)
 5. Create a new Pull Request
 
 ## License
@@ -110,13 +128,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Team
 
 ### Engineers:
-- Michael Chen
-- Freddy Song
-- Peter Lu
+- Michael Chen - Lead Model Engineer, Backend Dev
+- Freddy Song - Model Engineer, Lead Full-stack Dev
+- Peter Lu - Support Engineer, Frontend Dev
 
 ### Advisors:
-- Xianghao Kong
-- Ratnodeep Bandyopadhyay
+- Xianghao Kong - AI Model Advisor
+- Ratnodeep Bandyopadhyay - General Advisor
 
 ---
 
