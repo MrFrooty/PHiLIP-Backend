@@ -29,6 +29,9 @@ import {
 } from '@/app/api.js';
 import FeatureSection from '@/components/ui/features';
 import StorySection from '@/components/ui/story';
+import TechSection from '@/components/ui/tech';
+import ArtStylesButtons from '@/components/ui/options';
+import WorkSection from '@/components/ui/work';
 
 type ArtStyleOption = string | { label: string; options: string[] };
 type ArtStyles = Record<string, ArtStyleOption[]>;
@@ -322,8 +325,15 @@ export default function Home() {
           <div>
             <StorySection />
           </div>
+          <div>
+            <TechSection />
+          </div>
+
           <div className="mt-20 text-3xl font-semibold">
             <h1>Try PHiLIP</h1>
+          </div>
+          <div>
+            <ArtStylesButtons />
           </div>
         </div>
       </BlurFade>
@@ -479,6 +489,9 @@ export default function Home() {
         />
       </BlurFade>
       <BlurFade>
+        <div>
+          <WorkSection />
+        </div>
         <div className="py-10">
           <TeamSection />
         </div>
