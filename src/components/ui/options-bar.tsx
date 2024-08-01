@@ -7,7 +7,7 @@ interface OptionsBarProps {
 }
 
 const OptionsBar: React.FC<OptionsBarProps> = ({ isEnabled, onOptionClick }) => {
-  const options = ['Continue', 'Regenerate', 'Stop', 'ControlNet', 'Upscale', "Freestyle"];
+  const options = ['Regenerate', 'Stop', 'Pixart', 'ControlNet', 'Upscale', "Freestyle"];
 
   return (
     <div className="fixed right-0 bottom-8 w-[50%] flex justify-center items-center p-4">
@@ -16,13 +16,13 @@ const OptionsBar: React.FC<OptionsBarProps> = ({ isEnabled, onOptionClick }) => 
           <PulsatingButton
             key={option}
             className={`px-4 py-2 text-sm font-medium rounded-md transition-colors
-              ${isEnabled
+              ${option === 'Stop' || (isEnabled && option !== 'Stop')
                 ? "bg-primary/70 text-primary-foreground hover:bg-primary/90"
                 : "bg-muted text-muted-foreground cursor-not-allowed"
               }`}
-            onClick={() => isEnabled && onOptionClick(option)}
-            disabled={!isEnabled}
-            pulseColor={isEnabled ? "hsl(var(--primary))" : "hsl(var(--muted))"}
+            onClick={() => (option === 'Stop' || isEnabled) && onOptionClick(option)}
+            disabled={option !== 'Stop' && !isEnabled}
+            pulseColor={option === 'Stop' || isEnabled ? "hsl(var(--primary))" : "hsl(var(--muted))"}
             duration="2s"
           >
             {option}
