@@ -26,11 +26,7 @@ const FeatureSection: React.FC = () => {
             rounds, gradually enhancing the resolution and quality to align
             closely with user expectations. This process optimizes computational
             resources by focusing on user preferences, offering a more precise
-            and efficient image creation experience. The system utilizes AMD
-            Instinct MI210 or AMD Radeon Pro W7900 hardware, with software tools
-            including PyTorch 2.0, Stable Diffusion, and AMD ROCm. The frontend
-            is built with React, backend with Python and deployed through Vercel
-            and Flask.
+            and efficient image creation experience.
           </CardDescription>
         </CardContent>
       </Card>
