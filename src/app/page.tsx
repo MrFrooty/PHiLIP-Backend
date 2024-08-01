@@ -11,8 +11,6 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import BlurFade from '@/components/ui/blur-fade';
 import OptionsBar from '@/components/ui/options-bar';
-import FeatureSection from '@/components/ui/features';
-import StorySection from '@/components/ui/story';
 import StyleSelector from '@/components/ui/style-selector'
 import ImageCarousel from '@/components/ui/image-carousel'
 import {
@@ -22,7 +20,13 @@ import {
   applyUpscaler,
   applyControlNet,
 } from '@/app/api.js';
+
 import { artStyles } from '@/lib/art-styles'
+import FeatureSection from '@/components/ui/features';
+import StorySection from '@/components/ui/story';
+import TechSection from '@/components/ui/tech';
+import ArtStylesButtons from '@/components/ui/options';
+import WorkSection from '@/components/ui/work';
 
 export default function Home() {
   const [prompt, setPrompt] = useState({ text: '', charCount: 0 });
@@ -227,11 +231,10 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <BlurFade>
-        <div></div>
         <div className="flex flex-col items-center py-10">
           <div className="lg:w-2/3 bg-gradient-to-r  from-violet-500 to-slate-800 bg-clip-text text-transparent   lg:my-16">
-            <h1 className="text-6xl font mb-4 ">PHiLIP</h1>
-            <h2 className="text-3xl text-gray-950 mb-4 ">
+            <h1 className="text-6xl mb-4 ">PHiLIP</h1>
+            <h2 className="text-xl mb-4 ">
               {' '}
               Empowering Creativity Through AI-Generated Imagery
             </h2>
@@ -246,7 +249,14 @@ export default function Home() {
             <StorySection />
           </div>
           <div>
-            <TeamSection />
+            <TechSection />
+          </div>
+
+          <div className="mt-20 text-3xl font-semibold">
+            <h1>Try PHiLIP</h1>
+          </div>
+          <div>
+            <ArtStylesButtons />
           </div>
         </div>
       </BlurFade>
@@ -356,7 +366,16 @@ export default function Home() {
           />
         </div>
       </BlurFade>
-
+      
+      <BlurFade>
+        <div>
+          <WorkSection />
+        </div>
+        <div className="py-10">
+          <TeamSection />
+        </div>
+      </BlurFade>
+      
       {alertInfo.show && (
         <BlurFade>
           <Alert 
@@ -368,7 +387,7 @@ export default function Home() {
           </Alert>
         </BlurFade>
       )}
-
+      
       <footer className="py-4 text-center text-sm text-muted-foreground">
         © 2024 PHiLIP. All rights reserved.
       </footer>
