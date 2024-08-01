@@ -89,7 +89,7 @@ const ArtStylesMarquee: React.FC = () => {
   const rows = splitIntoRows(doubledArtStyles, 3);
 
   return (
-    <div className="py-6 marquee-container">
+    <div className="pt-10 marquee-container">
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className={`marquee-row row-${rowIndex % 3}`}>
           <div className="marquee">
