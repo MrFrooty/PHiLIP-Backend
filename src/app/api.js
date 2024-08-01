@@ -72,41 +72,113 @@ export const getStylePrompts = async () => {
 };
 
 export const applyPixart = async (imageData, prompt, temperature) => {
+  console.log('Sending Pixart request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  
   try {
     const response = await api.post('/apply-pixart', { imageData, prompt, temperature });
-    return response.data;
+    console.log('Raw Pixart API response:', response);
+    console.log('Response status:', response.status);
+    console.log('Response data:', response.data);
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      console.error('Invalid response format from Pixart API:', response.data);
+      throw new Error('Invalid response format from Pixart API');
+    }
   } catch (error) {
-    console.error('Error applying Pixart:', error);
+    console.error('Error in applyPixart:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };
 
 export const applyFreestyle = async (imageData, prompt, temperature, selectedStyle) => {
+  console.log('Sending Pixart request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  
   try {
     const response = await api.post('/apply-freestyle', { imageData, prompt, temperature, selectedStyle });
-    return response.data;
+    console.log('Raw Freestyle API response:', response);
+    console.log('Response status:', response.status);
+    console.log('Response data:', response.data);
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      console.error('Invalid response format from Freestyle API:', response.data);
+      throw new Error('Invalid response format from Freestyle API');
+    }
   } catch (error) {
-    console.error('Error applying Freestyle:', error);
+    console.error('Error in applyFreestyle:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };
 
 export const applyUpscaler = async (imageData, prompt, temperature, outputSize) => {
+  console.log('Sending Upscaler request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  
   try {
     const response = await api.post('/apply-upscaler', { imageData, prompt, temperature, outputSize });
-    return response.data;
+    console.log('Raw Upscaler API response:', response);
+    console.log('Response status:', response.status);
+    console.log('Response data:', response.data);
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      console.error('Invalid response format from Upscaler API:', response.data);
+      throw new Error('Invalid response format from Upscaler API');
+    }
   } catch (error) {
-    console.error('Error applying Upscaler:', error);
+    console.error('Error in applyUpscaler:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };
 
 export const applyControlNet = async (imageData, prompt) => {
+  console.log('Sending ControlNet request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  
   try {
     const response = await api.post('/apply-controlnet', { imageData, prompt });
-    return response.data;
+    console.log('Raw ControlNet API response:', response);
+    console.log('Response status:', response.status);
+    console.log('Response data:', response.data);
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      console.error('Invalid response format from ControlNet API:', response.data);
+      throw new Error('Invalid response format from ControlNet API');
+    }
   } catch (error) {
-    console.error('Error applying ControlNet:', error);
+    console.error('Error in ControlNet:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };

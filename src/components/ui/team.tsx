@@ -40,7 +40,7 @@ const engineers: Engineer[] = [
     role: 'Support Engineer, Full-stack Dev',
     image: '/peter-lu.jpg',
     linkedIn: 'https://www.linkedin.com/in/peter-lu1/',
-    blurb: 'UCR 3rd Year.\nPersonal Interests:AI/ML, K-Pop, travel',
+    blurb: 'UCR 3rd Year.\nPersonal Interests: AI/ML, K-Pop, travel',
   },
   {
     name: 'Xianghao Kong',

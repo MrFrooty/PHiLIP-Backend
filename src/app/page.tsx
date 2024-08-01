@@ -3,9 +3,12 @@
 import { useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+import { Check } from 'lucide-react';
+import { toast } from 'react-toastify';
+
+import { cn } from "@/lib/utils";
 import TeamSection from '@/components/ui/team';
 import InfoSection from '@/components/ui/info';
-
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { BentoGrid, BentoCard } from '@/components/ui/bento-grid';
@@ -19,7 +22,9 @@ import {
 } from '@/components/ui/carousel';
 import ProgressButton from '@/components/ui/progress-button';
 import OptionsBar from '@/components/ui/options-bar';
-//import AboutMeSection from '@/components/ui/about';
+import FeatureSection from '@/components/ui/features';
+import StorySection from '@/components/ui/story';
+import ImageSelectionControls from '@/components/ui/img-selection';
 import {
   generateImages,
   applyPixart,
@@ -27,8 +32,6 @@ import {
   applyUpscaler,
   applyControlNet,
 } from '@/app/api.js';
-import FeatureSection from '@/components/ui/features';
-import StorySection from '@/components/ui/story';
 
 type ArtStyleOption = string | { label: string; options: string[] };
 type ArtStyles = Record<string, ArtStyleOption[]>;
@@ -108,6 +111,8 @@ export default function Home() {
   const [progress, setProgress] = useState(0);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
   const [isEnhanced, setIsEnhanced] = useState(false);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [numImages, setNumImages] = useState(9);
   const [resolution, setResolution] = useState(512);
@@ -132,48 +137,100 @@ export default function Home() {
     }
   }, [isLoading]);
     
+  const handleResolutionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    setResolution(isNaN(value) ? 512 : value); 
+  };
+
   const handleStyleSelection = (style: string) => {
     setSelectedStyle((prev) => (prev === style ? null : style));
   };
 
+  const handleImageSelect = (imageUrl: string) => {
+    setSelectedImages(prev => {
+      if (prev.includes(imageUrl)) {
+        return prev.filter(url => url !== imageUrl); 
+      } else {
+        return [...prev, imageUrl]; 
+      }
+    });
+  };
+
+  const handleDownload = () => {
+    selectedImages.forEach((imageUrl, index) => {
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = `generated-image-${index + 1}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  };
+
+  const handleClearSelection = () => {
+    setSelectedImages([]);
+  };
+
   const handleOptionClick = async (option: string) => {
-    if (!generatedImages.length) {
-      console.log(`Cannot ${option} without a generated image`);
+    if (selectedImages.length === 0) {
+      console.log(`Cannot ${option} without a selected image`);
       return;
     }
-
-    const lastGeneratedImage = generatedImages[generatedImages.length - 1];
+  
     setIsLoading(true);
     setError(null);
-
+    setIsProcessing(true);
+  
+    setGeneratedImages([]);
+    setSelectedImages([]);
+    // setIsEnhanced(false);
+    setEnhancedImage(null);
+  
     try {
       let result;
       switch (option) {
         case 'Continue':
-          result = await applyPixart(lastGeneratedImage, prompt, temperature);
+          console.log('Applying Pixart enhancement...');
+          console.log('Selected image:', selectedImages[0]);
+          console.log('Prompt:', prompt);
+          console.log('Temperature:', temperature);
+          result = await applyPixart(selectedImages[0], prompt, temperature);
           break;
         case 'Regenerate':
-          console.log('Regenerate option clicked');
-          setIsLoading(false);
+          await handleGenerate();
+          setIsProcessing(false);
           return;
         case 'Stop':
           console.log('Stop option clicked');
           setIsLoading(false);
+          setIsProcessing(false);
           return;
         case 'ControlNet':
-          result = await applyControlNet(lastGeneratedImage, prompt);
+          console.log('Applying ControlNet enhancement...');
+          console.log('Selected image:', selectedImages[0]);
+          console.log('Prompt:', prompt);
+          console.log('Temperature:', temperature);
+          result = await applyControlNet(selectedImages[0], prompt);
           break;
         case 'Upscale':
+          console.log('Applying Upscaler enhancement...');
+          console.log('Selected image:', selectedImages[0]);
+          console.log('Prompt:', prompt);
+          console.log('Temperature:', temperature);
           result = await applyUpscaler(
-            lastGeneratedImage,
+            selectedImages[0],
             prompt,
             temperature,
             [1024, 1024]
           );
           break;
         case 'Freestyle':
+          console.log('Applying Freestyle enhancement...');
+          console.log('Selected image:', selectedImages[0]);
+          console.log('Prompt:', prompt);
+          console.log('Temperature:', temperature);
           result = await applyFreestyle(
-            lastGeneratedImage,
+            selectedImages[0],
             prompt,
             temperature,
             selectedStyle
@@ -182,26 +239,55 @@ export default function Home() {
         default:
           console.log(`Unknown option: ${option}`);
           setIsLoading(false);
+          setIsProcessing(false);
           return;
       }
-
-      if (result && result.enhancedImage) {
-        setEnhancedImage(result.enhancedImage);
-        setIsEnhanced(true);
+      console.log('Result:', result);
+      if (result && result.images && result.images.length > 0) {
+        console.log('Number of images received:', result.images.length);
+        console.log('First image data:', result.images[0].slice(0, 100) + '...');
+        setGeneratedImages(result.images);
+        // setIsEnhanced(true);
+      } else {
+        throw new Error('No images returned from the server');
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(`Error applying ${option}:`, error);
-      setError(`Failed to apply ${option}. Please try again.`);
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          console.error('Error response:', error.response.data);
+          console.error('Error status:', error.response.status);
+          console.error('Error headers:', error.response.headers);
+          console.error('Full error object:', JSON.stringify(error, null, 2));
+          setError(
+            `Failed to generate images. Server responded with status ${error.response.status}`
+          );
+        } else if (error.request) {
+          console.error('Error request:', error.request);
+          setError(
+            'Failed to generate images. No response received from the server.'
+          );
+        } else {
+          console.error('Error message:', error.message);
+          setError(`Failed to generate images. ${error.message}`);
+        }
+      } else if (error instanceof Error) { 
+        setError(`An error occurred: ${error.message}`);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setIsLoading(false);
+      setIsProcessing(false);
     }
   };
 
   const handleGenerate = async () => {
     setIsLoading(true);
     setError(null);
-    setIsEnhanced(false);
+    // setIsEnhanced(false);
     setEnhancedImage(null);
+    setSelectedImages([]);
 
     try {
       console.log('Sending request to generate images...');
@@ -427,32 +513,31 @@ export default function Home() {
         </div>
 
         {/* Right side: Generated Image Carousel */}
-        <div className="w-1/2 p-6 flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="w-1/2 p-6 flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
           <BlurFade>
             {generatedImages.length > 0 ? (
-              isEnhanced ? (
-                <div className="w-full max-w-xs">
-                  <Image
-                    src={enhancedImage!}
-                    alt="Enhanced Image"
-                    width={resolution}
-                    height={resolution}
-                    className="max-w-full object-contain shadow-lg rounded-lg"
-                  />
-                </div>
-              ) : (
-                <Carousel className="w-full max-w-xs">
+              <div className="flex flex-col items-center w-full max-w-xs">
+                <Carousel className="w-full mb-4">
                   <CarouselContent>
                     {generatedImages.map((imageUrl, index) => (
                       <CarouselItem key={index}>
-                        <div className="p-1">
+                        <div className="p-1 relative">
                           <Image
                             src={imageUrl}
                             alt={`Generated Image ${index + 1}`}
                             width={resolution}
                             height={resolution}
-                            className="max-w-full object-contain shadow-lg rounded-lg"
+                            className={cn(
+                              "w-full h-auto object-contain shadow-lg rounded-lg transition-opacity cursor-pointer",
+                              selectedImages.includes(imageUrl) ? "opacity-70" : "opacity-100"
+                            )}
+                            onClick={() => handleImageSelect(imageUrl)}
                           />
+                          {selectedImages.includes(imageUrl) && (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <Check className="text-primary w-8 h-8" />
+                            </div>
+                          )}
                         </div>
                       </CarouselItem>
                     ))}
@@ -460,7 +545,26 @@ export default function Home() {
                   <CarouselPrevious />
                   <CarouselNext />
                 </Carousel>
-              )
+
+                {/* Download and Clear Selection Buttons */}
+                <div className="flex justify-center space-x-4 mt-4">
+                  <Button
+                    onClick={handleDownload}
+                    disabled={selectedImages.length === 0}
+                    className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  >
+                    Download Images({selectedImages.length})
+                  </Button>
+                  <Button
+                    onClick={handleClearSelection}
+                    disabled={selectedImages.length === 0}
+                    variant="outline"
+                    className="border-primary text-primary hover:bg-primary/10"
+                  >
+                    Clear Selection
+                  </Button>
+                </div>
+              </div>
             ) : (
               <div className="text-center text-gray-500 dark:text-gray-400">
                 <p className="text-xl mb-2">No images generated yet</p>
@@ -473,11 +577,15 @@ export default function Home() {
           </BlurFade>
         </div>
       </main>
+      
+      {/* Options Bar */}
       <BlurFade>
-        <OptionsBar
-          isEnabled={generatedImages.length > 0 && !isLoading}
-          onOptionClick={handleOptionClick}
-        />
+        <div className="relative">
+          <OptionsBar
+            isEnabled={selectedImages.length > 0 && !isLoading}
+            onOptionClick={handleOptionClick}
+          />
+        </div>
       </BlurFade>
 
       <footer className="py-4 text-center text-sm text-muted-foreground">
