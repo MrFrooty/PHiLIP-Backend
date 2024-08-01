@@ -23,21 +23,21 @@ interface Engineer {
 const engineers: Engineer[] = [
   {
     name: 'Michael Chen',
-    role: 'Lead Model Engineer, Backend Dev',
+    role: 'Model Engineer, Backend Dev',
     image: '/michael-chen.jpg',
     linkedIn: 'https://www.linkedin.com/in/michael-luo-chen/',
     blurb: 'UCR 2nd Year.\nPersonal Interests: AI/ML, gaming, reading novels',
   },
   {
     name: 'Freddy Song',
-    role: 'Model Engineer, Lead Full-stack Dev',
+    role: 'Model Engineer, Full-stack Dev',
     image: '/freddy-song.jpg',
     linkedIn: 'https://www.linkedin.com/in/freddy-song-428677212/',
     blurb: 'UCR 2nd Year.\nPersonal Interests: AI/ML, cafe hopping, DJing',
   },
   {
     name: 'Peter Lu',
-    role: 'Support Engineer, Frontend Dev',
+    role: 'Support Engineer, Full-stack Dev',
     image: '/peter-lu.jpg',
     linkedIn: 'https://www.linkedin.com/in/peter-lu1/',
     blurb: 'UCR 3rd Year.\nPersonal Interests: AI/ML, K-Pop, travel',
