@@ -11,7 +11,6 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import BlurFade from '@/components/ui/blur-fade';
 import OptionsBar from '@/components/ui/options-bar';
-import StorySection from '@/components/ui/story';
 import StyleSelector from '@/components/ui/style-selector'
 import ImageCarousel from '@/components/ui/image-carousel'
 import {
