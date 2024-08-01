@@ -16,26 +16,25 @@
 .marquee {
   display: flex;
   white-space: nowrap; /* Keeps the content in a single line */
-  animation: marquee-left 120s linear infinite; /* Adjust the duration for faster/slower scroll */
 }
 
 .row-0 .marquee {
-  animation-name: marquee-left;
+  animation: marquee-left 300s linear infinite; /* Adjust the duration for slower scroll */
 }
 
 .row-1 .marquee {
-  animation-name: marquee-right;
+  animation: marquee-right 300s linear infinite; /* Adjust the duration for slower scroll */
 }
 
 .row-2 .marquee {
-  animation-name: marquee-left;
+  animation: marquee-left 300s linear infinite; /* Adjust the duration for slower scroll */
 }
 
 .marquee-button {
   background: linear-gradient(
     to right,
-    rgb(111, 100, 255),
-    rgb(177, 164, 255)
+    rgb(116, 130, 253),
+    rgb(97, 79, 199)
   ); /* Gradient background for buttons */
   color: white;
   font-weight: medium;
