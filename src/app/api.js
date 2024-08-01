@@ -175,6 +175,18 @@ export const getLogs = async (startDate, endDate, logLevel) => {
   }
 };
 
+// Progress Bar
+export const getProgress = async (taskId) => {
+  try {
+    const response = await api.get(`/progress/${taskId}`);
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching progress:', error);
+    throw error;
+  }
+};
+
 const apiFunctions = {
     generateImages,
     enhanceImage,
@@ -192,6 +204,7 @@ const apiFunctions = {
     getGeneratedImages,
     validateUserInput,
     getLogs,
+    getProgress
   };
   
 export default apiFunctions;
