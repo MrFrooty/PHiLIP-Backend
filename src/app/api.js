@@ -7,12 +7,16 @@ const api = axios.create({
 });
 
 // Image Generation
-export const generateImages = async (prompt, numImages, resolution, temperature, inferenceSteps) => {
+export const generateImages = async (prompt, numImages, resolution, temperature, inferenceSteps, signal) => {
   try {
-    const response = await api.post('/generate', { prompt, numImages, resolution, temperature, inferenceSteps });
+    const response = await api.post('/generate', { prompt, numImages, resolution, temperature, inferenceSteps }, {signal});
     return response.data;
   } catch (error) {
-    console.error('Error generating images:', error);
+    if (axios.isCancel(error)) {
+      console.log('Request canceled', error.message);
+    } else {
+      console.error('Error generating images:', error);
+    }
     throw error;
   }
 };
@@ -71,42 +75,95 @@ export const getStylePrompts = async () => {
   }
 };
 
-export const applyPixart = async (imageData, prompt, temperature) => {
+export const applyPixart = async (imageData, prompt, numImages=1, resolution=1024, temperature, inferenceSteps=10) => {
+  console.log('Sending Pixart request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  
   try {
-    const response = await api.post('/apply-pixart', { imageData, prompt, temperature });
-    return response.data;
+    const response = await api.post('/apply-pixart', { imageData, prompt, numImages, resolution, temperature, inferenceSteps });
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      throw new Error('Invalid response format from Pixart API');
+    }
   } catch (error) {
-    console.error('Error applying Pixart:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };
 
-export const applyFreestyle = async (imageData, prompt, temperature, selectedStyle) => {
+export const applyFreestyle = async (imageData, prompt, temperature=5, selectedStyle) => {
+  console.log('Sending Freestyle request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  console.log('Selected Style:', selectedStyle)
+  
   try {
     const response = await api.post('/apply-freestyle', { imageData, prompt, temperature, selectedStyle });
-    return response.data;
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      throw new Error('Invalid response format from Freestyle API');
+    }
   } catch (error) {
-    console.error('Error applying Freestyle:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };
 
 export const applyUpscaler = async (imageData, prompt, temperature, outputSize) => {
+  console.log('Sending Upscaler request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  
   try {
     const response = await api.post('/apply-upscaler', { imageData, prompt, temperature, outputSize });
-    return response.data;
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      throw new Error('Invalid response format from Upscaler API');
+    }
   } catch (error) {
-    console.error('Error applying Upscaler:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };
 
-export const applyControlNet = async (imageData, prompt) => {
+export const applyControlNet = async (imageData, prompt, temperature) => {
+  console.log('Sending ControlNet request...');
+  console.log('Image data length:', imageData.length);
+  console.log('Prompt:', prompt);
+  console.log('Temperature:', temperature);
+  
   try {
-    const response = await api.post('/apply-controlnet', { imageData, prompt });
-    return response.data;
+    const response = await api.post('/apply-controlnet', { imageData, prompt, temperature });
+
+    if (response.data && Array.isArray(response.data.enhancedImage)) {
+      return { images: response.data.enhancedImage };
+    } else {
+      throw new Error('Invalid response format from ControlNet API');
+    }
   } catch (error) {
-    console.error('Error applying ControlNet:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+    }
     throw error;
   }
 };
