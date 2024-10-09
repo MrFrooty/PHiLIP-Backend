@@ -45,7 +45,7 @@ export default function Home() {
   const [numImages, setNumImages] = useState(9);
   const [resolution, setResolution] = useState(512);
   const [temperature, setTemperature] = useState(1.0);
-  const [inferenceSteps, setInferenceSteps] = useState(4);
+  const [inferenceSteps, setInferenceSteps] = useState(6);
 
   useEffect(() => {
     if (isLoading) {
