@@ -8,23 +8,6 @@ export const artStyles: ArtStyles = {
       options: ['Renaissance', 'Mannerism', 'Baroque', 'Rococo', 'Gothic'],
     },
     {
-      label: 'Other Traditional Styles',
-      options: [
-        'Cubism',
-        'Art Deco',
-        'Minimalism',
-        'Pointillism',
-        'Suprematism',
-        'Precisionism',
-        'Cloisonnism',
-        'Synthetism',
-        'Neo-Plasticism',
-        'Bauhaus',
-      ],
-    },
-  ],
-  traditional_19th_century_movements: [
-    {
       label: '19th Century Art Movements',
       options: [
         'Neoclassicism',
@@ -39,6 +22,21 @@ export const artStyles: ArtStyles = {
         'Analytical Cubism',
         'Abstract Expressionism',
         'Color Field Painting',
+      ],
+    },
+    {
+      label: 'Other Traditional Styles',
+      options: [
+        'Cubism',
+        'Art Deco',
+        'Minimalism',
+        'Pointillism',
+        'Suprematism',
+        'Precisionism',
+        'Cloisonnism',
+        'Synthetism',
+        'Neo-Plasticism',
+        'Bauhaus',
       ],
     },
   ],
@@ -83,9 +81,5 @@ export const artStyles: ArtStyles = {
       ],
     },
   ],
-  contemporary: [
-    'Anime',
-    'Cartoon',
-    'Digital Pixel Art',
-  ],
+  contemporary: ['Anime', 'Cartoon', 'Digital Pixel Art'],
 };
