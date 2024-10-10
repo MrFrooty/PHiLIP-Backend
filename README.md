@@ -4,6 +4,8 @@
 
 PHiLIP (Personalized Human in Loop Image Production) is an AI-powered image generation tool that allows users to create and refine images through an interactive, iterative process. This project combines advanced AI models with a user-friendly interface to produce high-quality images based on text prompts and user feedback.
 
+PHiLIP Backend: https://github.com/MrFrooty/PHiLIP
+
 ## Table of Contents
 
 1. [Features](#features)
